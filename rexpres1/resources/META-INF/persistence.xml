@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence 
+                        http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+	<persistence-unit name="Rexpres">
+		<!-- <jta-data-source>java:jboos/jdbc/rexpress_d</jta-data-source> -->
+		<!--<non-jta-data-source>java:comp/env/jdbc/rexpress_d</non-jta-data-source> -->
+		
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		
+		<!-- <mapping-file>classpath:hibernate/aplicaciones_usuarios.hbm.xml</mapping-file>
+		<mapping-file>classpath:hibernate/aplicaciones.hbm.xml</mapping-file>
+		<mapping-file>classpath:hibernate/confoptions.hbm.xml</mapping-file>
+		<mapping-file>classpath:hibernate/funciones.hbm.xml</mapping-file>
+		<mapping-file>classpath:hibernate/role.hbm.xml</mapping-file>	
+		<mapping-file>classpath:hibernate/queries/aplicaciones-queries.hbm.xml</mapping-file> -->		 
+		
+		<!-- <class>com.rexpres.entites.Usuario</class>
+		<class>com.rexpres.entites.AplicacionFuncionUsuario</class> -->
+        <exclude-unlisted-classes>false</exclude-unlisted-classes> 
+		
+		<properties>
+	    <!-- <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>  -->
+			 <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+        <!-- h2 en memoria con ficheros sql de arranque  -->
+		     <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:hibernate/sqlS/schema.sql';DB_CLOSE_ON_EXIT=FALSE"/> 
+			 <property name="javax.persistence.jdbc.user" value="sa" /> 
+			 <property name="javax.persistence.jdbc.password" value="" />
+	         <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+			 <property name="hibernate.hbm2ddl.auto" value="none"/>
+             <property name="hibernate.archive.autodetection" value="class,hbm"/>
+			 <property name="hibernate.show_sql" value="true" />
+		     <property name="hibernate.format_sql" value="true"/>
+	    <!-- Ejecutar scripts insert (poner el dll.auto en create -->
+        <!--<property name="hibernate.hbm2ddl.import_files" value="hibernate/sqlD/data.sql"/>-->
+       </properties>
+	<!--  <property name="hibernate.connection.datasource" value="java:comp/env/jdbc/rexpress_d"/> 
+		  <property name="hibernate.default_catalog" value="com.rexssecurity"/>
+          <property name="hibernate.default_schema" value="entitys"/>
+          <property name="hibernate.default_entity_mode" value="dynamic-map"/>
+          <property name="hibernate.mapping.precedence" value="class,hbm"/>
+	      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" /> -->
+	</persistence-unit>
+
+</persistence>

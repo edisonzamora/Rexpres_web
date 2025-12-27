@@ -1,0 +1,39 @@
+<Resource name="jdbc/rexpress_d" 
+              type="javax.sql.DataSource" 
+              maxActive="100" 
+              maxIdle="30" 
+              maxWait="10000" 
+              url="jdbc:mysql://localhost:3306/rexpress_d" 
+              driverClassName="com.mysql.cj.jdbc.Driver" 
+              username="root" 
+              password="" />
+              
+              <!-- 	<p:row>
+				<h:form>
+					<p:commandButton value="View Cars"
+						action="#{homecontroller.getlibros}" />
+				</h:form>
+			</p:row> -->
+			
+<!-- ... possibly other repository elements ... -->
+		<!--<repository>
+			<id>spring-milestone</id>
+			<name>Spring Milestone Repository</name>
+			<url>https://repo.spring.io/milestone</url>
+		</repository>-->
+
+		<!--<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+		</repository>-->
+		
+		
+		<!-- <bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url"
+			value="jdbc:h2:~/h2db;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean> -->

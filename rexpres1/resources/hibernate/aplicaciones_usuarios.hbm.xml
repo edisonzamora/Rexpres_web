@@ -1,0 +1,45 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.rexpres.entities">
+
+	<class name="AplicacionUsuario" table="APLICACION_USUARIO">
+		  <composite-id name="id" class="com.rexpres.entities.claves.AplicacionUsuarioId">
+            <key-property name="idUsuario" column="id_usuario"/>
+            <key-property name="idAplicacion" column="id_aplicacion"/>
+        </composite-id>
+
+        <many-to-one name="usuario"
+                     class="Usuario"
+                     insert="false"
+                     update="false" 
+                     lazy="proxy">
+            <column name="id_usuario"/>
+        </many-to-one>
+
+        <many-to-one name="aplicacion"
+                     class="Aplicacion"
+                     insert="false"
+                     update="false"
+                     lazy="proxy">
+            <column name="id_aplicacion"/>
+        </many-to-one>
+
+        <property name="activo" column="ACTIVO" type="boolean"/>
+        
+        <property name="fechaAlta" column="FECHA_ALTA" type="org.hibernate.type.LocalDateType"/>
+        
+        <property name="fechaBaja" column="FECHA_BAJA" type="org.hibernate.type.LocalDateType"/>
+
+        <set name="funciones" cascade="all" inverse="true" lazy="true">
+            <key>
+                <column name="id_usuario"/>
+                <column name="id_aplicacion"/>
+            </key>
+            <one-to-many class="AplicacionFuncionUsuario"/>
+        </set>
+		
+	</class>
+</hibernate-mapping>
+
+<

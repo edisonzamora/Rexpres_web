@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rpx="http://java.sun.com/jsf/composite/componentes"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>#{app.TITULO_APP}</title>
+	<h:outputStylesheet name="loginstyle.css" library="css" />
+	<h:outputScript name="rexpress.js" library="js" />
+	<script type="text/javascript" src="" />
+	<style type="text/css">
+.ui-panelgrid {
+	margin: 0 auto;
+	width: 300px;
+	text-align: center;
+}
+</style>
+</h:head>
+<p:panel columns="1" styleClass="panel" id="logingrid">
+<f:view locale="#{loginbean.idioma}">
+
+	#{msg.version_idioma}
+	<div id="login_card" class="card">
+		<p:staticMessage severity="warn" summary="WARN" 
+				                  detail="#{sessionScope.LOGIN_ERROR}" 
+				                  style="width: 100%" rendered="#{not empty sessionScope.LOGIN_ERROR}" />
+        <p:staticMessage severity="info" summary="INFO" 
+		                      	detail="#{sessionScope.ACCESS_DENIED_MSG}" 
+		                      	style="width: 100%" rendered="#{not empty sessionScope.ACCESS_DENIED_MSG}"/>
+	<!-- #{sessionScope.remove('LOGIN_ERROR')} -->
+	<!-- #{sessionScope.remove('ACCESS_DENIED_MSG')} -->	
+	<h:form id="rex" onsubmit="this.action='#{request.contextPath}/appLogin';">
+		<p:panelGrid columns="1" styleClass="ui-fluid center ui-noborder">
+			<h2>#{msg.label_login_titulo}</h2>
+			<!-- <p:outputLabel value="Login failed!" styleClass="red"
+				rendered="${!empty param['error']}" />
+			 ${SPRING_SECURITY_LAST_EXCEPTION.message} -->
+			<p:inputText id="username" placeholder="#{msg.label_login_nombre}" />
+			<p:password id="password" placeholder="#{msg.label_login_password}" />
+			<p:commandButton value="#{msg.label_login_btn}" ajax="false" />
+		</p:panelGrid>
+	</h:form>
+</div>
+<h:form id="form_Login_combo">
+	<p:selectOneMenu id="selectIdiomas" value="#{loginbean.idioma}"
+		style="width:60px" label="Seleccionar idiooma">
+			<f:selectItems value="#{loginbean.idiomas}"/>
+			<p:ajax event="change" update=":logingrid"/>
+	</p:selectOneMenu>
+</h:form>
+</f:view>
+</p:panel>
+</html>

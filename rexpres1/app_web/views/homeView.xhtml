@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:rpx="http://java.sun.com/jsf/composite/componentes"
+	xmlns:t="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>#{app.TITULO_APP}</title>
+	<style type="text/css">
+/* .table_menu_list {
+	margin: 0 auto;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+	border-style: none;
+} */
+
+
+body{
+	margin: 0;
+    padding: 0;
+
+}
+body .ui-panelgrid .ui-panelgrid-cell {
+	border: none;
+	margin: 0;
+    padding: 0;
+}
+
+/* div.ui-datatable-scrollable-header-box {
+	margin-right: 0px !important;
+} */
+</style>
+</h:head>
+<body>
+	<f:view locale="#{configapp.idiomaDefecto}">
+		<p:panelGrid columns="1" id="grid-home" style="">
+				<p:row>
+					<h:form>
+						<p:menubar>
+							<p:submenu label="Admin">
+								<p:menuitem value="Aplicaciones" url="aplicaciones.xhtml" />
+								<p:menuitem value="Asuarios" url="users.xhtml" />
+								<p:menuitem value="Publico" url="#{request.contextPath}/modulo/home" />
+								<p:separator />
+								<p:menuitem value="Cerrar sesion" url="#{request.contextPath}/appLogout" />
+							</p:submenu>
+						</p:menubar>
+					</h:form>
+				</p:row>
+					<ui:insert name="contenido"/>
+				<p:row>
+				pie de pagina 
+				</p:row>
+		</p:panelGrid>
+	</f:view>
+</body>
+</html>

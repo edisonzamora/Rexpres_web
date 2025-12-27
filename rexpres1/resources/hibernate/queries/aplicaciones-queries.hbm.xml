@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<resultset name="aplicacionMapping">
+		<return class="com.rexpres.entities.Aplicacion">
+			<return-property name="id" column="id" />
+			<return-property name="codigo" column="codigo" />
+			<return-property name="nombre" column="nombre" />
+		</return>
+	</resultset>
+	<query name="aplicaciones.allList">
+	<![CDATA[
+		    FROM Aplicacion
+		 ]]>
+	
+	</query>
+	<sql-query name="aplicaciones.allListTo" resultset-ref="aplicacionMapping">
+		<![CDATA[
+		    SELECT a.id, a.nombre, a.codigo FROM aplicacion a
+		 ]]>
+	</sql-query>
+</hibernate-mapping>

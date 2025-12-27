@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.rexpres.entities">
+
+	<class name="Funcion" table="FUNCION">
+		<id column="ID" name="id" type="integer">
+			<generator class="identity" />
+		</id>
+		<property column="CODIGO" name="codigo" type="string" not-null="true" />
+		<property column="NOMBRE" name="nombre" type="string" not-null="true" />
+	   <property column="DESCRIPCION" name="descripcion" type="string" />
+	    <many-to-one name="aplicacion"
+                     class="Aplicacion"
+                     column="id_aplicacion"
+                     not-null="true"
+                     lazy="proxy"/>
+	</class>
+</hibernate-mapping>
+
+<

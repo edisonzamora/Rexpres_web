@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.rexpres.entities">
+	<!-- Poner las queries aqui en adelante -->
+	<class name="ConfigOptions" table="CONFIGOPTIONS">
+		<id column="ID" name="id" type="integer">
+		<generator class="identity"/>
+		</id>
+		<property column="NOMBRE" name="nombre" type="string" />
+		<property column="VALOR" name="valor" type="string" />
+		<property column="ACTIVO" name="activo" type="integer" />
+	</class>
+
+
+<!-- 	<query name="listaOpciones">
+     SELECT c FROM ConfigOptions c
+	</query> -->
+<!-- <import class="querys.hbm.xml"/>
+ --></hibernate-mapping>

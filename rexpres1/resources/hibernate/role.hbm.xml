@@ -1,0 +1,14 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.rexpres.entities">
+
+<class name="Role" table="ROLE">
+		<id column="ID" name="id" type="integer">
+			<generator class="identity"/>
+		</id>
+		<property column="LLAVE" name="llave" type="string" />
+		<property column="VALOR" name="valor" type="string" />
+</class>
+
+</hibernate-mapping>

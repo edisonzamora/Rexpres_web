@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/views/homeView.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:rpx="http://java.sun.com/jsf/composite/componentes"
+	xmlns:t="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="contenido">
+		<p:panelGrid id="home_panel" columns="1" style="text-align: center;">
+			<p:panelGrid columns="5" cellpadding="5" rendered="false">
+				<p:outputLabel value="#{msg.home_filter}: "
+					for="formBuscador:bucador" />
+				<p:column id="columm_select_buscador">
+					<h:form id="formSelector">
+						<p:selectOneMenu id="buscar_por"
+							value="#{homecontroller.homeBean.selectCamp}" style="width:125px">
+							<f:selectItem itemLabel="#{msg.home_by}" itemValue="" />
+							<f:selectItem itemLabel="#{msg.home_id}" itemValue="idusuario" />
+							<f:selectItem itemLabel="#{msg.home_name}" itemValue="nombre" />
+							<f:selectItem itemLabel="#{msg.home_lastname}"
+								itemValue="apellido" />
+							<f:selectItem itemLabel="#{msg.home_mail}" itemValue="correo" />
+							<p:ajax event="change" eupdate="formSelector:buscar_por" />
+						</p:selectOneMenu>
+					</h:form>
+				</p:column>
+
+				<p:column id="columm_buscador">
+					<h:form id="formBuscador">
+						<p:inputText id="bucador"
+							value="#{homecontroller.homeBean.buscador}">
+							<p:ajax event="keyup" update="formUsuariosTable:tableUsuarios"
+								listener="#{homecontroller.buscar}" />
+						</p:inputText>
+					</h:form>
+				</p:column>
+				<h:outputText id="out_usuario"
+					value="#{homecontroller.homeBean.userBeanHome.nombre}" />
+			</p:panelGrid>
+			<p:panelGrid columns="1">
+				<p:column style="height:200px;">
+					<h:form id="formUsuariosTable">
+						<p:dataTable id="tableUsuarios" var="usuarioBean"
+							value="#{homecontroller.homeBean.listaUsuariosBean}" rows="5"
+							scrollable="true" scrollHeight="100%" paginator="true"
+							paginatorPosition="bottom">
+							<f:facet name="header">#{msg.home_title_table_users}</f:facet>
+							<p:column style="width:32px;text-align: center">
+								<p:commandButton icon="pi pi-search" title="editar"
+									action="#{homecontroller.infoUsuario}">
+									<f:setPropertyActionListener value="#{usuarioBean}"
+										target="#{homecontroller.homeBean.userBeanHome}" />
+								</p:commandButton>
+							</p:column>
+							<p:column headerText="#{msg.home_id}" style="width:32px;"
+								sortBy="#{usuarioBean.idusuario}"
+								filterBy="#{usuarioBean.idusuario}">
+								<h:outputText value="#{usuarioBean.idusuario}" />
+							</p:column>
+							<p:column headerText="#{msg.home_name}"
+								sortBy="#{usuarioBean.nombre}" filterBy="#{usuarioBean.nombre}">
+								<h:outputText value="#{usuarioBean.nombre}" />
+							</p:column>
+							<p:column headerText="#{msg.home_lastname}"
+								sortBy="#{usuarioBean.apellido}"
+								filterBy="#{usuarioBean.apellido}">
+								<h:outputText value="#{usuarioBean.apellido}" />
+							</p:column>
+							<p:column headerText="#{msg.home_mail}"
+								sortBy="#{usuarioBean.correo}" filterBy="#{usuarioBean.correo}">
+								<h:outputText value="#{usuarioBean.correo}" />
+							</p:column>
+							<p:column>
+								<p:selectBooleanButton value="#{usuarioBean.activo eq 1}"
+									disabled="true" onLabel="Yes" offLabel="No">
+									<f:ajax update="tableUsuarios"
+										listener="#{homecontroller.getlibros}" />
+								</p:selectBooleanButton>
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</p:column>
+			</p:panelGrid>
+			<div class="card">
+				<h5 class="mt-0">Detalles</h5>
+				<p:tabView>
+					<p:tab title="Header I">
+						<h:form id="formAplicacionesTable">
+							<p:dataTable id="tableApliciones" var="aplicacionBean"
+								value="#{homecontroller.homeBean.listaAplicacionBean}" rows="5"
+								scrollable="true" paginator="true"
+								paginatorPosition="bottom">
+								<f:facet name="header">Aplicaciones</f:facet>
+								<p:column>
+									<p:commandButton icon="pi pi-search" title="editar"
+										action="#{homecontroller.infoUsuario}">
+										<f:setPropertyActionListener value="#{usuarioBean}"
+											target="#{homecontroller.homeBean.userBeanHome}" />
+									</p:commandButton>
+								</p:column>
+								<p:column headerText="Id"
+									sortBy="#{aplicacionBean.id}" filterBy="#{aplicacionBean.id}">
+									<h:outputText value="#{aplicacionBean.id}" />
+								</p:column>
+								<p:column headerText="Nombre"
+									sortBy="#{aplicacionBean.nombre}"
+									filterBy="#{aplicacionBean.nombre}">
+									<h:outputText value="#{aplicacionBean.nombre}" />
+								</p:column>
+								<p:column headerText="Codigo" sortBy="#{aplicacionBean.codigo}"
+									filterBy="#{aplicacionBean.codigo}">
+									<h:outputText value="#{aplicacionBean.codigo}" />
+								</p:column>
+							</p:dataTable>
+						</h:form>
+					</p:tab>
+					<p:tab>
+						<f:facet name="actions">
+                    Options II
+                </f:facet>
+						<f:facet name="title">
+							<span>Header II</span>
+						</f:facet>
+						<p class="m-0">Sed ut perspiciatis unde omnis iste natus error
+							sit voluptatem accusantium doloremque laudantium, totam rem
+							aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+							architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
+							voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed
+							quia consequuntur magni dolores eos qui ratione voluptatem sequi
+							nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
+							modi.</p>
+					</p:tab>
+					<p:tab title="Header III">
+						<p class="m-0">At vero eos et accusamus et iusto odio
+							dignissimos ducimus qui blanditiis praesentium voluptatum
+							deleniti atque corrupti quos dolores et quas molestias excepturi
+							sint occaecati cupiditate non provident, similique sunt in culpa
+							qui officia deserunt mollitia animi, id est laborum et dolorum
+							fuga. Et harum quidem rerum facilis est et expedita distinctio.
+							Nam libero tempore, cum soluta nobis est eligendi optio cumque
+							nihil impedit quo minus.</p>
+					</p:tab>
+				</p:tabView>
+			</div>
+		</p:panelGrid>
+	</ui:define>
+</ui:composition>
