@@ -6,15 +6,15 @@ import com.rexpres.entities.Usuario;
 
 public interface UsuarioDao{
 	
-public Optional<Usuario> altaUsuario(Usuario usuario);
+public Optional<Usuario> usuarioAlta(Usuario usuario);
 
-public Optional<Usuario> userQueryId(Integer nombre);
+public Optional<Usuario> usuarioById(Integer id);
 
-public List<Usuario> userQueryNombreList(String nombre);
+public Optional<Usuario> usuarioByCorreo(String correo);
 
-public List<Usuario> usersQueryRole(String value);
+public List<Usuario> usuariosByNombreList(String nombre);
 
-public List<Usuario> listaUsuarios();
+public List<Usuario> usuariosLista();
 
 
 

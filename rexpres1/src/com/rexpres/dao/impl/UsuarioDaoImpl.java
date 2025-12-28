@@ -20,17 +20,7 @@ public class UsuarioDaoImpl extends CommonDaoImpl<Usuario> implements UsuarioDao
 	}
 
 	@Override
-	public List<Usuario> usersQueryRole(String role) {
-
-		List<Usuario> list = (List<Usuario>) getEntityManager().createNamedQuery("Usuario.findByRole",Usuario.class)
-				.setParameter("role", role)
-				.getResultList();
-
-		return list;
-	}
-
-	@Override
-	public List<Usuario> listaUsuarios() {
+	public List<Usuario> usuariosLista() {
 		logger.info("listaUsuarios");		
 		List<Usuario> list=getEntityManager()
 				.createNamedQuery("Usuario.listAll",Usuario.class)
@@ -39,7 +29,7 @@ public class UsuarioDaoImpl extends CommonDaoImpl<Usuario> implements UsuarioDao
 	}
 
 	@Override
-	public Optional<Usuario> userQueryId(Integer id) {
+	public Optional<Usuario> usuarioById(Integer id) {
 		logger.info("userQueryId");
 
 		Usuario usuario=  getEntityManager().createNamedQuery("Usuario.findById",Usuario.class)
@@ -49,7 +39,7 @@ public class UsuarioDaoImpl extends CommonDaoImpl<Usuario> implements UsuarioDao
 	}
 
 	@Override
-	public List<Usuario> userQueryNombreList(String nombre) {
+	public List<Usuario> usuariosByNombreList(String nombre) {
 		logger.info("userQueryNombreList");
 		List<Usuario> listaUsuarios = getEntityManager().createNamedQuery("Usuario.findByNombre",Usuario.class)
 				.setParameter("nombre", nombre)
@@ -58,9 +48,18 @@ public class UsuarioDaoImpl extends CommonDaoImpl<Usuario> implements UsuarioDao
 	}
 
 	@Override
-	public Optional<Usuario> altaUsuario(Usuario usuario) {
+	public Optional<Usuario> usuarioAlta(Usuario usuario) {
 		getSessionManager().persist(usuario);
 		return null;
+	}
+
+	@Override
+	public Optional<Usuario> usuarioByCorreo(String correo) {
+		logger.info("usuarioByCorreo");
+		Usuario usuario=  getEntityManager().createNamedQuery("Usuario.findByCorreo",Usuario.class)
+				.setParameter("correo", correo)
+				.getSingleResult();
+		return Optional.ofNullable(usuario);
 	}
 
 

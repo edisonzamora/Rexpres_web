@@ -11,7 +11,7 @@ import com.rexpres.dao.AplicacionesDao;
 import com.rexpres.entities.Aplicacion;
 
 @Service
-public class AplicacionesImpl implements AplicacionesService{
+public class AplicacionesServiceImpl implements AplicacionesService{
 
 	@Autowired
 	private AplicacionesDao aplicacionesDao;

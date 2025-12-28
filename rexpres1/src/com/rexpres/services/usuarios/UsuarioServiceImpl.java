@@ -13,36 +13,23 @@ import com.rexpres.dao.UsuarioDao;
 import com.rexpres.entities.Usuario;
 
 @Service("UsuarioService")
-public class UsuarioServiceImp extends CommonServicesImpl<UserBean, Usuario> implements UsuarioService {
+public class UsuarioServiceImpl extends CommonServicesImpl<UserBean, Usuario> implements UsuarioService {
 
 	@Autowired
 	private UsuarioDao usuariodao;
 
 	@Override
 	@Transactional("transactionManager")
-	public UserBean UsuarioByCorreo(UserBean userBean) {
-		return null;
-	}
-
-	@Override
-	@Transactional("transactionManager")
-	public ArrayList<UserBean> usuariosByTipo(String role) {
-		ArrayList<Usuario> usuarios = null;
-		if (role.equalsIgnoreCase("ADM")) {
-			usuarios = (ArrayList<Usuario>) usuariodao.usersQueryRole(role);
-		}
-		if (role.equalsIgnoreCase("USU")) {
-			usuarios = (ArrayList<Usuario>) usuariodao.usersQueryRole(role);
-		}
-
-		return (ArrayList<UserBean>) usuarioToUserBeanList(usuarios);
+	public UserBean usuarioByCorreo(UserBean userBean) {
+		Usuario usuario=usuariodao.usuarioByCorreo(userBean.getCorreo()).orElse(null);
+		return usuarioToUserbean(null,usuario);
 	}
 
 	@Override
 	@Transactional("transactionManager")
 	public UserBean crearUsuario(Usuario entity) {
 		try {
-			usuariodao.altaUsuario(entity);
+			usuariodao.usuarioAlta(entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -51,14 +38,14 @@ public class UsuarioServiceImp extends CommonServicesImpl<UserBean, Usuario> imp
 
 	@Override
 	@Transactional("transactionManager")
-	public ArrayList<UserBean> listaUsuarios() {
-		ArrayList<Usuario> usuarios = (ArrayList<Usuario>) usuariodao.listaUsuarios();
-		return (ArrayList<UserBean>) usuarioToUserBeanList(usuarios);
+	public List<UserBean> listaUsuarios() {
+		List<Usuario> usuarios = (ArrayList<Usuario>) usuariodao.usuariosLista();
+		return usuarioToUserBeanList(usuarios);
 	}
 
 	@Override
 	@Transactional("transactionManager")
-	public UserBean UsuarioByNombre(String nombre) {
+	public UserBean usuarioByNombre(String nombre) {
 		// Usuario user = usuariodao.userQueryNombre(nombre);
 		UserBean userBean = new UserBean();
 		// usuarioToUserbean(userBean, user);
@@ -67,9 +54,9 @@ public class UsuarioServiceImp extends CommonServicesImpl<UserBean, Usuario> imp
 
 	@Override
 	@Transactional("transactionManager")
-	public ArrayList<UserBean> UsuarioByNombreList(String nombre) {
-		ArrayList<Usuario> usuarios = (ArrayList<Usuario>) usuariodao.userQueryNombreList(nombre);
-		return (ArrayList<UserBean>) usuarioToUserBeanList(usuarios);
+	public List<UserBean> usuarioByNombreList(String nombre) {
+		List<Usuario> usuarios = usuariodao.usuariosByNombreList(nombre);
+		return  usuarioToUserBeanList(usuarios);
 	}
 
 	private List<UserBean> usuarioToUserBeanList(List<Usuario> listUsuariosEntity) {
@@ -94,6 +81,9 @@ public class UsuarioServiceImp extends CommonServicesImpl<UserBean, Usuario> imp
 		/*
 		 * cambia la entidad a usuarioBean
 		 */
+		if(user==null)
+			user=new UserBean();
+		
 		user.setIdusuario(entity.getIdusuario());
 		user.setNombre(entity.getNombre());
 		user.setApellido(entity.getApellido());

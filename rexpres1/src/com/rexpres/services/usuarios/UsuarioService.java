@@ -1,22 +1,20 @@
 package com.rexpres.services.usuarios;
 
-import java.util.ArrayList;
+import java.util.List;
+import com.persistence.commos.service.CommonCrudService;
 import com.rexpres.beans.UserBean;
 import com.rexpres.entities.Usuario;
-import com.persistence.commos.service.CommonCrudService;
 
 public interface UsuarioService extends CommonCrudService<UserBean, Usuario> {
 	
 	public UserBean crearUsuario (Usuario entity );
 	
-	public UserBean UsuarioByCorreo ( UserBean userBean );
+	public UserBean usuarioByCorreo ( UserBean userBean );
 	
-	public ArrayList<UserBean> usuariosByTipo (String role);
+	public List<UserBean> listaUsuarios();
 	
-	public ArrayList<UserBean> listaUsuarios();
+	public UserBean usuarioByNombre ( String nombre );
 	
-	public UserBean UsuarioByNombre ( String nombre );
-	
-	public ArrayList<UserBean> UsuarioByNombreList ( String nombre );
+	public List<UserBean> usuarioByNombreList ( String nombre );
 	
 }
