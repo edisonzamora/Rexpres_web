@@ -37,3 +37,28 @@
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 	</bean> -->
+	
+	ObjectMapper mapper = new ObjectMapper();
+
+		UsuarioResquest usuario = new UsuarioResquest();
+		usuario.setCorreo("edison@gmailcom");
+		usuario.setPassword("edison");
+		
+		String json=null;
+		try {
+			json = mapper.writeValueAsString(usuario);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		RequestBody body = RequestBody.create(
+		        json,
+		        MediaType.get("application/json; charset=utf-8")
+		);
+
+		Request request = new Request.Builder()
+		        .url("http://localhost:8081/auth/generarToken")
+		        .post(body)
+		        .build();
+		Headers h=	http.headers(request);

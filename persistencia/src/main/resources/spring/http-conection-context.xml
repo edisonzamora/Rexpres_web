@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:secu="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/security 
+        https://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/mvc 
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+       
+    <!-- ObjectMapper -->
+    <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
+	
+	<!-- Interceptors -->
+	<bean id="authInterceptor" class="com.httpclient.interceptors.AuthInterceptor" /> 
+	<!-- <bean id="loggingInterceptor" class="com.example.httpclient.interceptor.LoggingInterceptor"/> -->
+
+	<!--OkHttpClientFactory -->
+	<bean id="okHttpClientFactory" class="com.httpclient.OkHttpClientFactory">
+		<property name="connectTimeout" value="5" />
+		<property name="readTimeout" value="10" />
+		<property name="writeTimeout" value="10" />
+		<property name="interceptors">
+			<list>
+				<ref bean="authInterceptor"/>
+		   <!-- <ref bean="loggingInterceptor"/> -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- OkHttpClient -->
+	<bean id="okHttpClient" factory-bean="okHttpClientFactory" factory-method="create"/>
+		
+	<!-- Servicio HTTP -->
+	<bean id="httpClientService" class="com.httpclient.HttpClientImpl">
+		<property name="okHttpClient" ref="okHttpClient"/>
+		<property name="objectMapper" ref="objectMapper"/>
+	</bean>
+	
+</beans>

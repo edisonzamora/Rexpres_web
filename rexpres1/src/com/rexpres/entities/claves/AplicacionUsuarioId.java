@@ -47,11 +47,12 @@ public class AplicacionUsuarioId implements Serializable {
 		return Objects.equals(idAplicacion, other.idAplicacion) && Objects.equals(idUsuario, other.idUsuario);
 	}
 
+	public AplicacionUsuarioId() {}
+	
 	public AplicacionUsuarioId(Long idUsuario, Long idAplicacion) {
 		super();
 		this.idUsuario = idUsuario;
 		this.idAplicacion = idAplicacion;
 	}
 	
-
 }
